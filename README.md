@@ -19,16 +19,42 @@ IMPORTANT NOTE: The following guide tries to explain what was done and how, but 
 The idea was to take a look at contriboard-noise-tester code and make a more generic version of it. Some research was done to see what would be the most secure and simple method of implementation. After all the approach chosen was to try and run PPTP VPN server within Docker container. This lead to several problems. At first PPTP daemon did not start at all. This was fixed by starting docker container with additional parameters. At this point it would be good to gather some basic knowledge on how docker works and what commands to use. Docker has pretty good documentation and tutorials on their website.
 
 However, here's a short summary on important commands and what they do (unless you have dedicated docker user with enough privileges, you should sudo):
-docker images ← this shows a list of built images
-docker ps  ←this shows a list of running containers
-docker rmi ← a command for removing a certain image, may be enforced with -f parameters
+
+```
+docker images
+``` 
+this shows a list of built images
+
+```
+docker ps
+``` 
+this shows a list of running containers
+
+```
+docker rmi
+``` 
+a command for removing a certain image, may be enforced with -f parameters
 
 When you have a Dockerfile with instuctions on how to build a docker image, you'll be able to use the following command to create a new image: 
-docker build -t <image name> <location of Dockerfile> ←where -t is a parameter that allows you to name the image created
-Example command: docker build -t test .    ←Here “.” means that Dockerfile is located in the current folder.
+
+```
+docker build -t <image name> <location of Dockerfile>
+``` 
+where -t is a parameter that allows you to name the image created
+
+Example command: 
+```
+docker build -t test .
+```  
+
+Here “.” means that Dockerfile is located in the current folder.
 
 Here's an example of a command that got us this far, that PPTP daemon was running inside container:
-sudo docker run -d --privileged -p 1723:1723 <container name> ← here privileged parameter is necessary to give PPTP daemon enough privileges to run, and -p command forwards host machine port 1723 to docker container port 1723. Port 1723 is used by PPTP daemon.
+
+```
+sudo docker run -d --privileged -p 1723:1723 <container name>
+``` 
+here privileged parameter is necessary to give PPTP daemon enough privileges to run, and -p command forwards host machine port 1723 to docker container port 1723. Port 1723 is used by PPTP daemon.
 
 ## About supervisord
 
