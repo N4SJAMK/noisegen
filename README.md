@@ -4,13 +4,13 @@ The most important function of this repository is to continue work on contriboar
 
 What has been done so far:
 
-## Implementation that works with Contriboard by Teemu Kontio and Jan Kuukkanen (the repository mentioned above)
+## Implementation that works with Contriboard (the repository mentioned above)
 
 Comments:
 - This implementation has been made in short time and it basically consists of web UI and scripts to manipulate Linux qdisc command with various parameters.
 - To create a more general noise generator that works with all kinds of websites and services, the work should basically be started from scratch.
 
-## Additional research on more general approach by Tero Oinonen and a lot of help from Janne Alatalo
+## Additional research on more general approach
 
 IMPORTANT NOTE: The following guide tries to explain what was done and how, but at least the initial research showed that running PPTP VPN server within Docker container has several pretty severe issues. It would probably be a better option to start from scratch and use for example OpenVPN within Docker container, or as a less secure method, use ansible scripts to create a new virtual machine with certain configurations when the previous one breaks. This, however, does not prevent user from doing something harmful inside the virtual machine that may be unwanted to the account owner. OpenVPN method would probably be the best bet, but making a good practice for user authentication that requires as little effort from the end user as possible could take time. This is due to OpenVPN using a platform-specific client and CA files to generate .ovpn authentication file on client-side device.
 
@@ -23,24 +23,24 @@ However, here's a short summary on important commands and what they do (unless y
 ```
 docker images
 ``` 
-this shows a list of built images
+This shows a list of built images
 
 ```
 docker ps
 ``` 
-this shows a list of running containers
+This shows a list of running containers
 
 ```
 docker rmi
 ``` 
-a command for removing a certain image, may be enforced with -f parameters
+A command for removing a certain image, may be enforced with -f parameters
 
 When you have a Dockerfile with instuctions on how to build a docker image, you'll be able to use the following command to create a new image: 
 
 ```
 docker build -t <image name> <location of Dockerfile>
 ``` 
-where -t is a parameter that allows you to name the image created
+Where -t is a parameter that allows you to name the image created
 
 Example command: 
 ```
@@ -54,7 +54,7 @@ Here's an example of a command that got us this far, that PPTP daemon was runnin
 ```
 sudo docker run -d --privileged -p 1723:1723 <container name>
 ``` 
-here privileged parameter is necessary to give PPTP daemon enough privileges to run, and -p command forwards host machine port 1723 to docker container port 1723. Port 1723 is used by PPTP daemon.
+Here privileged parameter is necessary to give PPTP daemon enough privileges to run, and -p command forwards host machine port 1723 to docker container port 1723. Port 1723 is used by PPTP daemon.
 
 ## About supervisord
 
